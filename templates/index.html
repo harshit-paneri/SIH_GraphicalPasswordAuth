@@ -5,6 +5,10 @@
     <title>
       {% block title %}Graphical Password Authentication {% endblock title %}
     </title>
+
+
+    <link rel="shortcut icon" type="image/x-icon" src="{% static '/priv/logo-snaphhers.ico' %}">
+
     <link
       rel="stylesheet"
       type="text/css"
@@ -41,7 +45,25 @@
       rel="stylesheet"
       href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css"
     />
+
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
     <meta charset="utf-8" />
+    {% block head %}{% endblock head %}
+
+    <noscript>
+      <div class="error message">
+          We're sorry but our site <strong>requires</strong> JavaScript.
+      </div>    
+  </noscript>
+
+    <meta charset="utf-8" />
+
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
@@ -59,6 +81,20 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item">
+
+              <img class="logo-size" src=" {% static 'logo-snaphhers.png' %}" width="60px" height="48"px>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="index">Home</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="#">Features</a>
+            </li> -->
+            <li class="nav-item">
+              <a class="nav-link" href="about">About Us</a>
+            </li>
+            <!-- <li class="nav-item dropdown">
+
               <a class="nav-link active" href="#">Home</a>
             </li>
             <li class="nav-item">
@@ -68,6 +104,7 @@
               <a class="nav-link" href="#">About Us</a>
             </li>
             <li class="nav-item dropdown">
+
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -88,6 +125,14 @@
                   <a class="dropdown-item" href="#">Android Development</a>
                 </li>
               </ul>
+
+            </li> -->
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="#">Contact Us</a>
+            </li> -->
+          </ul>
+          <div class="d-flex">
+
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact Us</a>
@@ -110,6 +155,7 @@
                 <li><a class="dropdown-item" href="#">Product Three</a></li>
               </ul>
             </div> -->
+
             {% if user.is_authenticated %}
             <div class="dropdown">
               <button
@@ -122,12 +168,17 @@
               >
                 Welcome {{request.user}}
               </button>
+
+              <a class="dropdown-item" href="/logout">Logout</a>
+              
+
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="/logout">Logout</a>
                 <a class="dropdown-item" href="{% url 'user_profile' user %}"
                   >Dashboard</a
                 >
               </div>
+
             </div>
             {% else %}
             <div class="text-end">
@@ -151,10 +202,25 @@
         </div>
       </div>
     </nav>
+
+    {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>Message: </strong>{{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+    <!-- Bootstrap JS -->
+    <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+
+    
+
     <!-- Bootstrap JS -->
     <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
 
     {% block head %}{% endblock head %}
+
   </head>
   <body>
     {% block body %} {% endblock body %}
