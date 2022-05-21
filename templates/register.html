@@ -6,6 +6,7 @@
 <html lang="en">
 <head>
     {% block title %}Register{% endblock title %}
+
     {% block head %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script>
@@ -34,10 +35,21 @@
                 <div class="form-content" >
                     <div class="form-items">
                         <h3>WELCOME USERS</h3>
+
+</head>
+<body>
+    {% block body %}
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h3>Aabra ka Dabra gili gili chuu</h3>
+                        <h3>Data dede bro</h3>
+
                         <!-- <p>Access to the most powerfull tool in the entire design and web industry.</p> -->
                         <div class="page-links">
                             <a href="login">Login</a><a href="register" class="active">Register</a>
                         </div>
+
                         <form method="POST" action="" id="my_form">
                             {% csrf_token %}
                             <div id="prompt1"></div>
@@ -59,6 +71,24 @@
                                 </div>
                             </div>
                             
+
+                        <form>
+                            <!-- <input class="form-control" type="text" name="name" placeholder="Full Name" required> -->
+                            <input class="form-control" type="email" name="email" placeholder="E-mail Address" required>
+                            <div class="grid-container " >
+                                {% for i in 0|range3:7 %}
+                                {% for j in 1|range:4 %}
+                    
+                                <div class="grid-item"><img src="{% get_static_prefix %}segments/{{img_name}}/{{img_name}}_{{ i|addition:j }}.png" class="cut"></div>
+                                {% endfor %}
+                                {% endfor %}
+
+                            </div>
+                            <!-- <input class="form-control" type="password" name="password" placeholder="Password" required> -->
+                            <div class="form-button">
+                                <button id="submit" type="submit" class="ibtn">Register</button>
+                            </div>
+
                         </form>
                         
                     </div>
@@ -69,6 +99,7 @@
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+
     <script src="{% static 'js/our_js.js' %}"></script>
 
     <script>
@@ -246,6 +277,7 @@ function blur_img()
 
         
     </script>
+
     {% endblock body %}
 </body>
 </html>

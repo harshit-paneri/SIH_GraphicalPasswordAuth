@@ -1,4 +1,5 @@
 .cut {
+    display: grid;
     height:fit-content;
     width:fit-content;
 }
@@ -25,3 +26,4 @@
     color: #D8000C;
     background-color: #FFBABA;
 }
+

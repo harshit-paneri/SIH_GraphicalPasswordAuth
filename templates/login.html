@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block title %}Login{% endblock title %}
+
     {% block head %}
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -36,6 +37,8 @@
             
     </script>
     {% endblock head %}
+
+
     {% block style %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome-all.min.css' %}">
@@ -53,6 +56,7 @@
                         <div class="page-links">
                             <a href="login" class="active">Login</a><a href="register">Register</a>
                         </div>
+
                         <form id="login_form" action="" method="post">
                             {% csrf_token %}
                             <div id="prompt1"></div>
@@ -81,6 +85,18 @@
                         <br>
                         <br>
                         <br>
+
+                        <form>
+                            <input class="form-control" type="text" name="username" placeholder="E-mail Address" required>
+                            <!-- <input class="form-control" type="password" name="password" placeholder="Password" required> -->
+                            <div class="form-button">
+                                <button id="submit" type="submit" class="ibtn">Login</button> <a href="forget6.html">Forget password?</a>
+                            </div>
+                        </form>
+                        <div class="other-links">
+                            <span>Or login with</span><a href="#">Facebook</a><a href="#">Google</a><a href="#">Linkedin</a>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -89,6 +105,7 @@
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+
 
 <script>
 
@@ -233,6 +250,8 @@ form.addEventListener('submit', function (event) {
 
 
 </script>
+
+
 {% endblock body %}
 </body>
 </html>
