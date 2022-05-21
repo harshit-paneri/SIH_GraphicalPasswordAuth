@@ -9,7 +9,7 @@
     width:fit-content;
     grid-template-columns: auto auto auto;
     background-color: #2196F3;
-    padding: px;
+/*     padding: px; */
 }
 
 .grid-item {
