@@ -6,9 +6,10 @@ Domain Bucket : Blockchain & Cybersecurity
 ---
 </br>
 ----------------------------------------------------------------------------
+</br>
 ---
-Name: Harshit Paneri
-Work: Frontend
+Work : Frontend
+Developer Name: Harshit Paneri
 github_user: harshit-paneri
 ---
 
