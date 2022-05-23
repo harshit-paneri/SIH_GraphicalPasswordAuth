@@ -1,0 +1,240 @@
+{% extends 'index.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}Login{% endblock title %}
+    {% block head %}
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        
+        function disable_button()
+        {
+            var imagesList = document.getElementsByClassName('img_btn');
+            for(var i=0;i<imagesList.length;i++)
+            {
+                imagesList[i].disabled=true;
+            }
+        }
+        function enable_button()
+        {
+            var imagesList = document.getElementsByClassName('img_btn');
+            for(var i=0;i<imagesList.length;i++)
+            {
+                imagesList[i].disabled=false;
+            }
+        }
+        window.onload = function()
+            {
+                document.getElementById("images").hidden=true;
+                enable_button();
+            }
+            
+
+            
+    </script>
+    {% endblock head %}
+    {% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/iofrm-style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/iofrm-theme6.css' %}">
+    {% endblock style %}
+</head>
+<body style="padding-top: 55px;">
+    {% block body %}
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h3>Get more things done with Loggin platform.</h3>
+                        <p>Access to the most powerfull tool in the entire design and web industry.</p>
+                        <div class="page-links">
+                            <a href="login" class="active">Login</a><a href="register">Register</a>
+                        </div>
+                        <form id="login_form" action="" method="post">
+                            {% csrf_token %}
+                            <div id="prompt1"></div>
+                            <div id="prompt2"></div>
+                            <input class="form-control" type="text" name="email" id="email" placeholder="E-mail Address" required>
+                            <p id="info" ></p>
+                            <p id="time"></div>
+                            <div class="form-button">
+                                <div class="grid-container" id='images' >
+                                    {% include 'grid.html' %}
+                                </div>
+                                <button id="next" style="margin-left: 5px;" type="button" class="ibtn" onclick="nxt()">Next</button> 
+                                <button id="login" style="margin-left: 5px;" type="submit" hidden class="ibtn">Login</button> <a href="forget6.html">Forget password?</a>
+                            </div>
+                        </form>
+                        
+                        <br>
+                        <br><br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+    </div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+<script>
+
+    function blur_img()
+            {
+                var imagesList = document.getElementsByClassName('grid-img');
+                for(var i=0;i<imagesList.length;i++)
+                {
+                    imagesList[i].style.filter = 'blur(5px)';
+                }
+            }
+
+
+    function haltFunction() {
+        clearInterval(timeValue);
+    }
+
+    function startTimer(duration, display) {
+        var timer = duration;
+        timeValue = setInterval(function () {
+            seconds = parseInt(timer);
+            disable_button();
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            display.textContent = 'in '+ seconds + " seconds , images will become blur!";
+    
+            if (timer==0){
+                enable_button();
+                
+            blur_img(); haltFunction(); return;}
+            --timer;
+    
+        }, 1000);
+        return ;
+    }
+    
+    function timer(){
+        var fiveMinutes = 10,
+            display = document.querySelector('#time');
+        startTimer(fiveMinutes, display);
+    };
+    
+    var gpwd_set = new Set();
+        var pswd1='';
+
+function onSelect(r,c) {
+    var imagesList = document.getElementsByClassName('img_btn');
+    var x=imagesList[2].disabled;
+    var res = r.toString() + c.toString();
+    if(!x)
+    {
+        if (gpwd_set.has(res) ) {
+            gpwd_set.delete(res);
+            document.getElementById(res).style.opacity=1;
+        } else {
+                gpwd_set.add(res);
+                document.getElementById(res).style.opacity=0;
+        }
+}
+}
+    
+
+function check_email(event)
+{
+var x=document.getElementById("prompt1");
+var y=document.getElementById("prompt2");
+console.log("nxt funxtion!");
+if (document.getElementById('email').value=="") {
+    
+    x.innerHTML='Please enter email id!';
+    x.style.color='red';
+}
+
+else
+{
+    x.innerHTML='';
+    y.innerHTML='';
+
+$.ajax({
+    url : "{% url 'shuffle_login_img' %}",
+    type : "POST",
+    data : {
+        email : document.getElementById('email').value,
+      csrfmiddlewaretoken: '{{ csrf_token }}' , //This is must for security in Django
+    }, // data sent with the post request
+
+    // handle a successful response
+    success : function(response){
+        $('.grid-container').html('').wrapInner(response);
+    },
+
+    error : function(response){
+        console.log("not found");
+        window.location.href='register';
+    }
+});
+
+timer();
+}
+}
+
+function nxt()
+    {
+        document.getElementById('next').hidden=true;
+        document.getElementById('login').hidden=false;
+        document.getElementById('images').hidden=false;
+
+    check_email(event);
+}
+
+//submission part
+function post(path, params, method = 'post') {
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    const form = document.getElementById('login_form');
+    form.method = method;
+    form.action = path;
+    console.log(params);
+
+    for (const key in params) {
+        if (params.hasOwnProperty(key)) {
+            const hiddenField = document.createElement('input');
+            hiddenField.type = 'hidden';
+            hiddenField.name = key;
+            hiddenField.value = params[key];
+
+            form.appendChild(hiddenField);
+        }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
+var form = document.getElementById('login_form');
+form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    console.log("form submitted!");
+    post('login_page', {
+        email: document.getElementById('email').value,
+        password: Array.from(gpwd_set),
+    })
+});
+
+</script>
+{% endblock body %}
+</body>
+</html>

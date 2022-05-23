@@ -1,0 +1,29 @@
+{% load mathfilters %} 
+{% load myfilters %} 
+{% load static %} 
+{% if shuffle.any%} 
+{% for j in shuffle %}
+
+<div class="grid-item">
+  <button class="img_btn" type="button" value="{{img_name}}{{j}}">
+    <img
+      id="{{img_name}}{{j}}"
+      src="{% get_static_prefix %}segments/{{img_name}}/{{img_name}}_{{j}}.png"
+      class="grid-img cut"
+      onclick="onSelect('{{img_name}}','{{j}}')"
+    />
+  </button>
+</div>
+{% endfor %} {% else %} {% for j in 1|range:10 %}
+
+<div class="grid-item">
+  <button class="img_btn" type="button" value="{{img_name}}{{j}}">
+    <img
+      id="{{img_name}}{{j}}"
+      src="{% get_static_prefix %}segments/{{img_name}}/{{img_name}}_{{j}}.png"
+      class="grid-img cut"
+      onclick="onSelect('{{img_name}}','{{j}}')"
+    />
+  </button>
+</div>
+{% endfor %} {% endif %}
