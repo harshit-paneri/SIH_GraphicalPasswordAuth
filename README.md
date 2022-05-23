@@ -1,4 +1,9 @@
 
 # SIH_GraphicalPasswordAuth
 
-This repo is for project purpose
+---
+Name: Harshit Paneri
+Work: Frontend
+github_user: harshit-paneri
+---
+
