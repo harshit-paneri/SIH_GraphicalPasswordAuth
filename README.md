@@ -6,7 +6,7 @@ Domain Bucket : Blockchain & Cybersecurity
 ---
 
 
-<h1 text-align: center;>Developers Details</h1>
+<h1>Developers Details</h1>
 <table>
   <tr>
     <th>Ser. No.</th>
