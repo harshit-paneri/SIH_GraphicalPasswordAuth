@@ -1,2 +1,27 @@
-# SIH_GraphicalPasswordAuth
-This repo is for project purpose
+---
+Problem Statement Title : Graphical Password Authentication  
+PS Number : DR705 
+Orgainzation : All India Council for Technical Education (AICTE). 
+Domain Bucket : Blockchain & Cybersecurity
+---
+
+
+<h1>Developers Details 💥✨👩‍💻🐱‍👤</h1>
+<table>
+  <tr>
+    <th>Ser. No.</th>
+    <th>Work</th>
+    <th>Name</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Frontend</td>
+    <td>Harshit Paneri</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Backend and logic</td>
+    <td>Priyanshu Arora</td>
+  </tr>
+  
+</table>
