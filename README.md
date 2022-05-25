@@ -18,6 +18,11 @@ Domain Bucket : Blockchain & Cybersecurity
     <td>Frontend</td>
     <td>Harshit Paneri</td>
   </tr>
+  <tr>
+    <td>2</td>
+    <td>Backend and logic</td>
+    <td>Priyanshu Arora</td>
+  </tr>
   
 </table>
 
