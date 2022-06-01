@@ -1,35 +1,36 @@
-
-from tkinter import image_names
+import re
+from django.contrib.auth.hashers import check_password
 from django.shortcuts import render
 from django.shortcuts import render , redirect
-from datetime import date
-from django.http import JsonResponse
-from django.http import HttpResponseRedirect , HttpResponse
+from django.http import HttpResponseRedirect 
 from django.contrib.auth.models import User
-from accounts.models import user_accounts , LoginInfo
+# from matplotlib.style import context
+from accounts.models import LoginInfo 
 from django.contrib import messages
 from django.core.mail import EmailMessage
-from GraphicalPasswordAuth.settings import N, TBA, EMAIL_HOST_USER, ALLOWED_HOSTS
+from GraphicalPasswordAuth.settings import  TBA, EMAIL_HOST_USER, ALLOWED_HOSTS
 
 from django.contrib.auth import authenticate ,login as auth_login , logout , update_session_auth_hash
-from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import PasswordChangeForm , SetPasswordForm
 from GraphicalPasswordAuth.settings import STATICFILES_DIRS
 import os
 import random , uuid
 import numpy as np
+from .forms import CustomPasswordResetForm
 
 # Create your views here.
 def index(request):
-    return render(request,'index.html')
+    return redirect(login)
 
+def dashboard(request):
+    return render(request,'dashboard.html')
 
 def about(request):
     return render(request,'about.html')
 
 def login(request):
     if request.user.is_authenticated:
-            return redirect(index)
+            return redirect(dashboard)
     else:
         return render(request, 'login.html')
     
@@ -56,28 +57,41 @@ def handle_register(request):
     return render(request,'login.html')
 
 
-def new_random_img(request):
+def get_img_name():
     static_path=STATICFILES_DIRS[0]
     images=str(static_path)+"\dataset"
     imgs=os.listdir(images)
     image_name=random.choice(imgs)
+    
+    return image_name
+
+def new_random_img(request):
+    img_name=get_img_name()
     context={
-        'img_name':image_name[:-4]
+        'img_name':img_name[:-4]
     }
-    request.session['img_name']=image_name[:-4]
+    
+    request.session['img_name']=img_name[:-4]
     if request.is_ajax:
-            return render(request,'grid.html',context)
+        return render(request,'grid.html',context)
         
 def shuffle_img(request):
-    print(request.GET)
-    import numpy as np
+    print(request.session)
     x = np.arange(1,10)
     np.random.shuffle(x)
-    
-    context={
-        'img_name':request.session['img_name'],
-        'shuffle':x
-    }
+    try:
+        if request.session['img_name']:  
+            context={
+                'img_name':request.session['img_name'],
+                'shuffle':x
+            }
+    except:
+        user=User.objects.get(username=request.user)
+        context={
+            'img_name':user.logininfo.image_name,
+            'shuffle':x
+        }
+        
     if request.is_ajax:
             return render(request,'grid.html',context)
         
@@ -119,6 +133,8 @@ def check_email(request):
                 user = User.objects.create_user( username=email, email=email, password=password1)
                 login_info = LoginInfo(user=user, fails=0,image_name=img_name)
                 login_info.save()
+                auth_login(request,user)
+                
                 messages.success(request, 'Account created successfully!')
             except Exception as e:
                 print(e)
@@ -152,16 +168,30 @@ def sendLoginLinkMailToUser(username):
         print('LOGIN LINK EMAIL SENT')
 
 
-def sendPasswordResetLinkToUser(username):
+def reset_password(request):
+    fm=CustomPasswordResetForm()
+    context={
+        'form':fm,
+    }
+    return render(request,'password_reset.html',context)
+
+
+def sendPasswordResetLinkToUser(request):
+
     # send reset link everytime user requests
     try:
-        user = User.objects.get(username=username)
-    except Exception:
+        user = User.objects.filter(username=request.POST['email']).first()
+        if user==None:
+            messages.error(request, 'user does not exist!')
+            return redirect(index)
+    except Exception as e:
+        print(e)
         return False
     
     link = str(uuid.uuid4())
     user.logininfo.reset_link = link
     user.logininfo.save()
+    print("here")
     email = EmailMessage(
         subject='Link to Rest your Password',
         body='''
@@ -175,7 +205,7 @@ def sendPasswordResetLinkToUser(username):
     )
     email.send()
     print('PWD RESET LINK EMAIL SENT')
-    return True
+    return render(request,'password_reset_sent.html')
 
 
         
@@ -235,11 +265,13 @@ def login_page(request):
                 user = User.objects.get(username=username)
                 update_login_info(user, False)
                 messages.warning(request, 'Login Failed! inavlid password!')
-                return redirect('login')
+                context = {
+                        'email' : user.email,
+                    }
+                return render(request, 'login.html',context)
 
     else:
-        messages.error("dekhte h baad me!")
-        return render(request, 'login.html')
+        return render(request,'login.html')
 
 
 def login_mail_check(request):
@@ -259,4 +291,121 @@ def login_mail_check(request):
 def handlelogout(request):
     logout(request)
     messages.success(request, 'Successfully logged Out.')
+    return redirect('index')
+
+
+
+
+
+
+def change_user_password(request):
+    if request.user.is_authenticated:  
+        if request.method =="POST":
+            password1 = request.POST['password1']
+            password2 = request.POST['password2']
+            if password1==password2:
+                password1=''.join(password1)
+                password2=''.join(password2)
+                img_name=(password1.split(','))[0][:-1]
+                print(img_name)
+                print(password1)
+                u=User.objects.get(username=request.user)
+                u.set_password(password1)
+                u.save()
+                l=LoginInfo.objects.get(user_id=u.id)
+                l.image_name=img_name
+                l.save()
+                messages.success(request,"Password changed successfully!");
+                auth_login(request,u)
+                return redirect(dashboard)
+        else:
+            pass
+        return render(request, 'change_user_password.html')
+    else:
+        return redirect('login')
+    
+    
+    
+    
+def check_pass(request):
+    print("inside check pass function")
+    passw=request.POST.getlist('password1[]')
+    passw=','.join(passw)
+    res=check_password(passw,request.user.password)
+    if res:
+       return new_random_img(request)
+    else:
+        return False
+    
+def reset_from_uid(request,uid):
+    if request.method == 'POST':
+        print('hi-post')
+        password = request.POST['password1']
+        print(password)
+        uniqui_id=uid
+        print(uniqui_id)
+        try:
+            # get user from the uid and reset the Link to 'NO_LINK' again
+            login_info = LoginInfo.objects.get(reset_link=uid)
+            
+            print(login_info)
+            user = login_info.user
+            # reset pwd
+            user.set_password(password)
+            login_info.reset_link = None
+            login_info.image_name=request.session['img_name']
+            login_info.save()
+            user.save()
+            print(user)
+            messages.success(request, 'Password Changed Successfully!')
+        except Exception as e:
+            print(e)
+            messages.warning(request, 'Invalid Link. Please check again!')
+        return redirect(index)
+    else:
+        print('hi-else')
+        try:
+            # To make sure the link is valid
+            print(uid)
+            login_info = LoginInfo.objects.get(reset_link=uid)
+            print(login_info)
+            data = {
+                'img_name': get_img_name()[:-4],
+            }
+            print(data['img_name'])
+            request.session['img_name']=data['img_name']
+            return render(request, 'password_reset_form.html', context=data)
+        except Exception:
+            messages.warning(request, 'Invalid Link. Please check again!')
+            return redirect(index)
+        
+        
+        
+def login_from_uid(request, uid):
+    try:
+        # get user from the uid and reset the Link to 'NO_LINK' again
+        print('uid = ',uid)
+        login_info = LoginInfo.objects.get(login_link=uid)
+        print(login_info.user)
+        user = login_info.user
+        auth_login(request, user)
+        update_login_info(user, True)
+        login_info.login_link = None
+        login_info.save()
+        messages.success(request, 'Login successfull!')
+    except Exception:
+        messages.warning(request, 'Invalid Link. Please check again!')
+
+    return redirect('index')
+
+
+def del_user(request):
+    uname=str(request.user)
+    user=User.objects.get(username=request.user)
+    print(user)
+    if user==None:
+        messages.error(request,"User does not exist!")
+    else:
+        user.delete()
+        messages.success(request,"user {} deleted successfully!".format(uname))
     return redirect('index')

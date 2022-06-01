@@ -28,7 +28,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['localhost',
     '127.0.0.1',]
 
-N = 6
 TBA=5
 
 # Application definition
@@ -165,4 +164,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'offlineattendance@gmail.com'
-EMAIL_HOST_PASSWORD = 'Attendance@Offline@119'
+EMAIL_HOST_PASSWORD = 'fblnrdznsadlecbe'
+
+#bmibtfewoyyabjyg
+#Attendance@Offline119
