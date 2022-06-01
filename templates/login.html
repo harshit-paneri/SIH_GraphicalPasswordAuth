@@ -58,7 +58,12 @@
                             {% csrf_token %}
                             <div id="prompt1"></div>
                             <div id="prompt2"></div>
+                            {% if email %}
+                            <input class="form-control" onload="nxt()" type="text" name="email" id="email" placeholder="E-mail Address" required value='{{email}}'>
+                            
+                            {% else %}
                             <input class="form-control" type="text" name="email" id="email" placeholder="E-mail Address" required>
+                            {% endif %}
                             <p id="info" ></p>
                             <p id="time"></div>
                             <div class="form-button">
@@ -66,7 +71,7 @@
                                     {% include 'grid.html' %}
                                 </div>
                                 <button id="next" style="margin-left: 5px;" type="button" class="ibtn" onclick="nxt()">Next</button> 
-                                <button id="login" style="margin-left: 5px;" type="submit" hidden class="ibtn">Login</button> <a href="reset_password">Forget password?</a>
+                                <button id="login" style="margin-left: 5px;" type="submit" hidden class="ibtn">Login</button> <a href="{% url 'reset_password' %} ">Forget password?</a>
                             </div>
                         </form>
                         
@@ -86,6 +91,9 @@
                 </div>
             </div>
     </div>
+
+    
+
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>

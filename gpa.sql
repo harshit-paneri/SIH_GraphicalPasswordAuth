@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2022 at 07:38 PM
+-- Generation Time: May 31, 2022 at 06:01 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -35,13 +35,6 @@ CREATE TABLE `accounts_logininfo` (
   `reset_link` varchar(225) DEFAULT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `accounts_logininfo`
---
-
-INSERT INTO `accounts_logininfo` (`id`, `image_name`, `fails`, `login_link`, `reset_link`, `user_id`) VALUES
-(1, 'jaguar', 0, NULL, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -142,8 +135,7 @@ CREATE TABLE `auth_user` (
 --
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(1, 'pbkdf2_sha256$260000$oGrUegE8s9SS1ji7lwFphB$plBw1cScnLdpC5w0Uy4QmZ7AnWbE02SWhML5NmLY9HQ=', '2022-05-25 16:48:04.990925', 1, 'admin', '', '', '', 1, 1, '2022-05-25 16:47:36.944617'),
-(2, 'pbkdf2_sha256$260000$WRGsGZ83GL6EQnt7BJPutv$yYDwKPokDFcv88xlkflbf4QDVFDEofh/KO8X30T53To=', '2022-05-25 17:34:24.992313', 0, 'priyanshuarora02@gmail.com', '', '', 'priyanshuarora02@gmail.com', 0, 1, '2022-05-25 16:55:46.445644');
+(1, 'pbkdf2_sha256$260000$oGrUegE8s9SS1ji7lwFphB$plBw1cScnLdpC5w0Uy4QmZ7AnWbE02SWhML5NmLY9HQ=', '2022-05-25 16:48:04.990925', 1, 'admin', '', '', '', 1, 1, '2022-05-25 16:47:36.944617');
 
 -- --------------------------------------------------------
 
@@ -264,6 +256,14 @@ CREATE TABLE `django_session` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `django_session`
+--
+
+INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('58h9nmommx10rgepfn51lhgz6k0hb0g9', '.eJxVjMsOwiAQRf-FtSG8KS7d-w1kYAapGkhKuzL-uzbpQrf3nHNfLMK21rgNWuKM7MwcO_1uCfKD2g7wDu3Wee5tXebEd4UfdPBrR3peDvfvoMKo39rkJFARhKCBrHAOPU1aZa-ElcYXmwwBCYdSF0peoQRbfNYQNPlJaPb-AO2GN_8:1nw4IO:oUojfp-hgTwALlj0tnpm9ynfDzRp36x4qk5jKvSggiQ', '2022-06-14 16:00:36.097072'),
+('jzbg79ddqofz19vzr84gajlswbjnxr16', '.eJxVjMsOgjAQRf-la9MMfTDg0r3fQIbOjKCmTSisjP-uJCx0e88592UG2tZp2Kosw8zmbII5_W4jpYfkHfCd8q3YVPK6zKPdFXvQaq-F5Xk53L-Dier0rZ2PjDF1AQF78j4Q9oyjOICWWCGpKKiE2AVpAbVpmdA7Im1iYHXm_QHY0DgD:1nvyR4:ZeKpNpy7-d1_x3U_D8wMZENkVUVV2I0pA0nFE0brNWU', '2022-06-14 09:45:10.289193');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -357,7 +357,7 @@ ALTER TABLE `django_session`
 -- AUTO_INCREMENT for table `accounts_logininfo`
 --
 ALTER TABLE `accounts_logininfo`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `auth_group`
@@ -381,7 +381,7 @@ ALTER TABLE `auth_permission`
 -- AUTO_INCREMENT for table `auth_user`
 --
 ALTER TABLE `auth_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `auth_user_groups`
