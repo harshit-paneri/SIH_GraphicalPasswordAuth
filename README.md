@@ -30,7 +30,7 @@ Domain Bucket : Blockchain & Cybersecurity
   </tr>
   <tr>
     <td>4</td>
-    <td>Research</td>
+    <td>Research and Data Handling</td>
     <td>Asim Ali</td>
   </tr>
   <tr>
