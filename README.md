@@ -23,5 +23,20 @@ Domain Bucket : Blockchain & Cybersecurity
     <td>Backend and logic</td>
     <td>Priyanshu Arora</td>
   </tr>
+  <tr>
+    <td>3</td>
+    <td>Frontend</td>
+    <td>Hanshika Mehta</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>Research and Data Handling</td>
+    <td>Asim Ali</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>Tester</td>
+    <td>Naman Sharma</td>
+  </tr>
   
 </table>
