@@ -38,5 +38,10 @@ Domain Bucket : Blockchain & Cybersecurity
     <td>Tester</td>
     <td>Naman Sharma</td>
   </tr>
+  <tr>
+    <td>6</td>
+    <td> Management </td>
+    <td>Somya Champawat</td>
+  </tr>
   
 </table>
