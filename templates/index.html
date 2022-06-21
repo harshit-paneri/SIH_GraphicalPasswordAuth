@@ -1,146 +1,103 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-  <head>
-    <link rel="shortcut icon" src="https://img.icons8.com/plumpy/24/000000/s.png" />
-    <title>
-      {% block title %}Graphical Password Authentication {% endblock title %}
-    </title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<head>
+  <link rel="shortcut icon" src="https://img.icons8.com/plumpy/24/000000/s.png" />
+  <title>
+    {% block title %}Graphical Password Authentication {% endblock title %}
+  </title>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/bootstrap.min.css' %} "
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/fontawesome-all.min.css' %} "
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/iofrm-style.css' %} "
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/iofrm-theme6.css' %} "
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/our_css.css' %} "
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.10.2/css/all.css"
-    />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css"
-    />
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %} " />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome-all.min.css' %} " />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/iofrm-style.css' %} " />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/iofrm-theme6.css' %} " />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/our_css.css' %} " />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" />
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
-      crossorigin="anonymous"
-    />
-    <meta charset="utf-8" />
-    {% block head %}{% endblock head %}
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" />
 
-    <noscript>
-      <div class="error message">
-          We're sorry but our site <strong>requires</strong> JavaScript.
-      </div>    
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+  <meta charset="utf-8" />
+  {% block head %}{% endblock head %}
+
+  <noscript>
+    <div class="error message">
+      We're sorry but our site <strong>requires</strong> JavaScript.
+    </div>
   </noscript>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav mx-auto">
-            <li class="nav-item">
-              <img class="logo-size" src=" {% static 'logo-snaphhers.png' %}" width="60px" height="48"px>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="index">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="about">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact Us</a>
-            </li>
-          </ul>
-          <div class="d-flex">
-            {% if user.is_authenticated %}
-            <div class="dropdown">
-              <button
-                class="btn btn-secondary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Welcome {{request.user}}
-              </button>
-              <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-              <a class="dropdown-item" href="{% url 'change_user_password' %}">Change Password</a>
-              <a class="dropdown-item" href="" data-toggle="modal" data-target="#DeleteAccount">Delete User</a>
-              
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <img class="logo-size" src=" {% static 'logo-snaphhers.png' %}" width="60px" height="48" px>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="index">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contactus">Contact Us</a>
+          </li>
+        </ul>
+        <div class="d-flex">
+          {% if user.is_authenticated %}
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Welcome {{request.user}}
+            </button>
+            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+            <a class="dropdown-item" href="{% url 'change_user_password' %}">Change Password</a>
+            <a class="dropdown-item" href="" data-toggle="modal" data-target="#DeleteAccount">Delete User</a>
 
-              </div>
 
-            {% else %}
-            <div class="text-end">
-              <button
-                type="button"
-                onclick="location.href='{% url 'login' %}'"
-                class="btn btn-outline-light me-2"
-              >
-                Login
-              </button>
-              <button
-                type="button"
-                onclick="location.href='{% url 'register' %}'"
-                class="btn btn-warning"
-              >
-                Register
-              </button>
-            </div>
-            {% endif %}
           </div>
+
+          {% else %}
+          <div class="text-end">
+            <button type="button" onclick="location.href='{% url 'login' %}'" class="btn btn-outline-light me-2">
+              Login
+            </button>
+            <button type="button" onclick="location.href='{% url 'register' %}'" class="btn btn-warning">
+              Register
+            </button>
+          </div>
+          {% endif %}
         </div>
       </div>
-    </nav>
-    {% for message in messages %}
+    </div>
+  </nav>
+  {% for message in messages %}
   <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
     <strong>Message: </strong>{{ message }}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -148,31 +105,36 @@
     </button>
   </div>
   {% endfor %}
-    <!-- Bootstrap JS -->
-    <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
-  </head>
-  <body>
+  <!-- Bootstrap JS -->
+  <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+</head>
 
-<!-- Modal -->
-<div class="modal fade" id="DeleteAccount" tabindex="-1" role="dialog" aria-labelledby="Delete Account" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Delete Account</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure to delete the account ? This action is irreversible and all your data will be permanently deleted. Proceed with caution!</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="location.href='{% url 'del_user' %}'">Save changes</button>
+<body>
+
+  <!-- Modal -->
+  <div class="modal fade" id="DeleteAccount" tabindex="-1" role="dialog" aria-labelledby="Delete Account"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Delete Account</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure to delete the account ? This action is irreversible and all your data will be permanently
+            deleted. Proceed with caution!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="location.href='{% url 'del_user' %}'">Save
+            changes</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-{% block body %} {% endblock body %}
-  </body>
+  {% block body %} {% endblock body %}
+</body>
+
 </html>
