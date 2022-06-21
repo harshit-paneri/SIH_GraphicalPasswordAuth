@@ -1,10 +1,10 @@
-import re
+
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import render
 from django.shortcuts import render , redirect
 from django.http import HttpResponseRedirect 
 from django.contrib.auth.models import User
-from matplotlib.style import context
+
 from accounts.models import LoginInfo 
 from django.contrib import messages
 from django.core.mail import EmailMessage
@@ -27,6 +27,9 @@ def dashboard(request):
 
 def about(request):
     return render(request,'about.html')
+
+def contactus(request):
+    return render(request,'contactus.html')
 
 def login(request):
     if request.user.is_authenticated:
@@ -388,11 +391,11 @@ def login_from_uid(request, uid):
         login_info = LoginInfo.objects.get(login_link=uid)
         print(login_info.user)
         user = login_info.user
-        auth_login(request, user)
+        # auth_login(request, user)
         update_login_info(user, True)
         login_info.login_link = None
         login_info.save()
-        messages.success(request, 'Login successfull!')
+        messages.success(request, 'Account Unlocked. Please login again!')
     except Exception:
         messages.warning(request, 'Invalid Link. Please check again!')
 

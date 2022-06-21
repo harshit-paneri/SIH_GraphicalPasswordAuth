@@ -10,6 +10,7 @@ from django.contrib.auth.views import PasswordResetView
 urlpatterns = [
     path('',views.login,name='login'),
     path('about',views.about,name='about'),
+    path('contactus',views.contactus,name='contactus'),
     path('login',views.login,name='login'),
     path('dashboard',views.dashboard,name='dashboard'),
     path('index',views.index,name='index'),
