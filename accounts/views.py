@@ -267,7 +267,7 @@ def login_page(request):
             else:
                 user = User.objects.get(username=username)
                 update_login_info(user, False)
-                messages.warning(request, 'Login Failed! inavlid password!')
+                messages.warning(request, 'Login Failed! inavlid password! {} attempts left '.format(TBA - int(user.logininfo.fails)))
                 context = {
                         'email' : user.email,
                     }
@@ -321,9 +321,11 @@ def change_user_password(request):
                 messages.success(request,"Password changed successfully!");
                 auth_login(request,u)
                 return redirect(dashboard)
+            else:
+                messages.error(request,'passwords do not match!!')
+                return render(request, 'change_user_password.html')
         else:
-            pass
-        return render(request, 'change_user_password.html')
+            return render(request, 'change_user_password.html')
     else:
         return redirect('login')
     
