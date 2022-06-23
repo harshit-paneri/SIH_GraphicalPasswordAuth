@@ -7,24 +7,13 @@
 <head>
     {% block title %}Register{% endblock title %}
     {% block head %}
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script>
-        function disable_button()
-        {
-            var imagesList = document.getElementsByClassName('img_btn');
-            for(var i=0;i<imagesList.length;i++)
-            {
-                imagesList[i].disabled=true;
-            }
+        window.onload = function(e){ 
+            enable_button(); 
         }
-        function enable_button()
-        {
-            var imagesList = document.getElementsByClassName('img_btn');
-            for(var i=0;i<imagesList.length;i++)
-            {
-                imagesList[i].disabled=false;
-            }
-        }
+        
     </script>
     {% endblock head %}
 </head>
@@ -34,7 +23,7 @@
                 <div class="form-content" >
                     <div class="form-items">
                         <h3>WELCOME USERS</h3>
-                        <!-- <p>Access to the most powerfull tool in the entire design and web industry.</p> -->
+                        
                         <div class="page-links">
                             <a href="login">Login</a><a href="register" class="active">Register</a>
                         </div>
@@ -54,7 +43,7 @@
                                 <div class="form-button">
                                     <button style="margin: 16px 16px ;" id="register_btn" type="submit" class="ibtn" hidden>Register</button>
                                     <button style="margin: 16 px 16px;" id="blur_btn" type="button"  class="ibtn" hidden onclick="blur_img()">blur</button>
-                                    <button style="margin: 10px;" id="reload_image" type="button" class="ibtn"  onclick="func1(event)">Change-image</button>
+                                    <button style="margin: 10px;" id="reload_image" type="button" class="ibtn"  onclick="func1()">Change-image</button>
                                     <button style="margin: 10px;" id="confirm_image" type="button" class="ibtn"  onclick="check_email(event)">confirm-image</button>
                                 </div>
                             </div>
@@ -70,182 +59,10 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/our_js.js' %}"></script>
-
-    <script>
-
-
-function func1(event)
-{
-    event.preventDefault();
-    $('.grid-container').html('').load(
-        "{% url 'new_random_img' %}"
-    );
-}
-        function shuffle(event)
-        {
-            pswd1=Array.from(gpwd_set);
-            gpwd_set.clear();
-            console.log("hello");
-            document.getElementById('reload_image').hidden=true;
-            document.getElementById('confirm_image').hidden=true;
-            document.getElementById('register_btn').hidden=false;
-            document.getElementById('info').innerHTML='now select any three images and remember their order. that will be your password!';
-            event.preventDefault();
-            $('.grid-container').html('').load(
-                "{% url 'shuffle_img' %}"
-            );
-
-            timer();
-            
-        }
-
-        var gpwd_set = new Set();
-        var pswd1='';
-        var pswd2='';
-
-function onSelect(r,c) {
-    var imagesList = document.getElementsByClassName('img_btn');
-    var x=imagesList[2].disabled;
-    var res = r.toString() + c.toString();
-    if(!x)
-    {
-        if (gpwd_set.has(res) ) {
-            gpwd_set.delete(res);
-            document.getElementById(res).style.opacity=1;
-        } else {
-                gpwd_set.add(res);
-                document.getElementById(res).style.opacity=0;
-        }
-}
-}
-
-function check_email(event)
-{
-var x=document.getElementById("prompt1");
-var y=document.getElementById("prompt2");
-if (document.getElementById('email').value=="") {
-    
-    x.innerHTML='Please enter email id!';
-    x.style.color='red';
-}
-
-if (gpwd_set.size<3)
-{
-    y.innerHTML = "please select at least 3 images";
-    y.style.color='red';
-}
-
-else
-{
-    x.innerHTML='';
-    y.innerHTML='';
-    shuffle(event);
-
-{% comment %} $.ajax({
-    url : "{% url 'shuffle_login_img' %}",
-    type : "POST",
-    data : {
-        email : document.getElementById('email').value,
-      csrfmiddlewaretoken: '{{ csrf_token }}' , //This is must for security in Django
-    }, // data sent with the post request
-
-    // handle a successful response
-    success : function(response){
-        console.log(response);
-        $('.grid-container').html('').wrapInner(response);
-    }
-}); {% endcomment %}
-
-timer();
-}
-}
+    <script src="{% static 'js/common_js.js' %}"></script>
+    <script src="{% static 'js/register.js' %}"></script>
 
 
-
-function haltFunction() {
-    clearInterval(timeValue);
- }
-function startTimer(duration, display) {
-    var timer = duration;
-    timeValue = setInterval(function () {
-        seconds = parseInt(timer);
-        disable_button();
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-        display.textContent = 'in '+ seconds + " second , images will become blur!";
-
-        if (timer==0){
-            enable_button();
-            
-        blur_img(); haltFunction(); return;}
-        --timer;
-
-    }, 1000);
-    return ;
-}
-
-function timer(){
-    var fiveMinutes = 10,
-        display = document.querySelector('#time');
-    startTimer(fiveMinutes, display);
-};
-
-
-function blur_img()
-        {
-            var imagesList = document.getElementsByClassName('grid-img');
-            for(var i=0;i<imagesList.length;i++)
-            {
-                imagesList[i].style.filter = 'blur(5px)';
-            }
-        }
-
-    
-        window.onload = function(e){ 
-            enable_button(); 
-        }
-
-
-
-        //submission part
-        function post(path, params, method = 'post') {
-
-            // The rest of this code assumes you are not using a library.
-            // It can be made less wordy if you use one.
-            const form = document.getElementById('my_form');
-            form.method = method;
-            form.action = path;
-            console.log(params);
-    
-            for (const key in params) {
-                if (params.hasOwnProperty(key)) {
-                    const hiddenField = document.createElement('input');
-                    hiddenField.type = 'hidden';
-                    hiddenField.name = key;
-                    hiddenField.value = params[key];
-    
-                    form.appendChild(hiddenField);
-                }
-            }
-    
-            document.body.appendChild(form);
-            form.submit();
-        }
-
-        // Submit post on submit
-    var form = document.getElementById('my_form');
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        console.log("form submitted!");
-        post('check_email', {
-            email: document.getElementById('email').value,
-            password1: pswd1,
-            password2: Array.from(gpwd_set),
-        })
-    });
-   
-
-        
-    </script>
     {% endblock body %}
 </body>
 </html>

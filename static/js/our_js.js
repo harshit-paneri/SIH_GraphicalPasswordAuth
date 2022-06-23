@@ -72,7 +72,7 @@ function blur_img()
             const form = document.getElementById('my_form');
             form.method = method;
             form.action = path;
-            console.log(params);
+            
     
             for (const key in params) {
                 if (params.hasOwnProperty(key)) {
@@ -93,7 +93,7 @@ function blur_img()
     var form = document.getElementById('my_form');
     form.addEventListener('submit', function (event) {
         event.preventDefault();
-        console.log("form submitted!");
+        
         post('check_email', {
             email: document.getElementById('email').value,
             password1: pswd1,

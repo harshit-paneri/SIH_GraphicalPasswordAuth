@@ -1,25 +1,17 @@
-
 from django.contrib.auth.hashers import check_password
-from django.shortcuts import render
 from django.shortcuts import render , redirect
-from django.http import HttpResponseRedirect 
 from django.contrib.auth.models import User
-
 from accounts.models import LoginInfo 
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from GraphicalPasswordAuth.settings import  TBA, EMAIL_HOST_USER, ALLOWED_HOSTS
-
-from django.contrib.auth import authenticate ,login as auth_login , logout , update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm , SetPasswordForm
+from django.contrib.auth import authenticate ,login as auth_login , logout
 from GraphicalPasswordAuth.settings import STATICFILES_DIRS
-import os
-import random , uuid
-import numpy as np
+import os , random , uuid , numpy as np
 from .forms import CustomPasswordResetForm
 
 # Create your views here.
-def index(request):
+def index(request):      #main landing index page ( default )
     return redirect(login)
 
 def dashboard(request):
@@ -37,119 +29,113 @@ def login(request):
     else:
         return render(request, 'login.html')
     
+def get_img_name():     #function to get a random image
+    static_path=STATICFILES_DIRS[0]
+    images=str(static_path)+"\dataset"
+    imgs=os.listdir(images)
+    image_name=random.choice(imgs)
+    return image_name
     
-def register(request):
+def register(request):     #register page redirection
     if request.user.is_authenticated:
         return redirect(index)
     else:
-        static_path=STATICFILES_DIRS[0]
-        images=str(static_path)+"\dataset"
-        imgs=os.listdir(images)
-        image_name=random.choice(imgs)
+        image_name=get_img_name()
         context={
             'img_name':image_name[:-4]
         }
         request.session['img_name']=image_name[:-4]
         return render(request, 'register.html',context)
     
-    
-def handle_register(request):
-    print(request.method)
-    if request.method == "POST":
-        email_id=request.POST['email']
-    return render(request,'login.html')
 
 
-def get_img_name():
-    static_path=STATICFILES_DIRS[0]
-    images=str(static_path)+"\dataset"
-    imgs=os.listdir(images)
-    image_name=random.choice(imgs)
-    
-    return image_name
 
-def new_random_img(request):
+def new_random_img(request):     #function to get new random image , when requesting for another image 
     img_name=get_img_name()
     context={
         'img_name':img_name[:-4]
     }
-    
     request.session['img_name']=img_name[:-4]
-    if request.is_ajax:
-        return render(request,'grid.html',context)
+    
+    return render(request,'grid.html',context)
         
-def shuffle_img(request):
-    print(request.session)
+        
+        
+def shuffle_img(request):   #function to shuffle the current image and populate image grid
     x = np.arange(1,10)
     np.random.shuffle(x)
-    try:
-        if request.session['img_name']:  
-            context={
-                'img_name':request.session['img_name'],
+    
+    if request.user.is_authenticated and request.method=="POST":
+        user = User.objects.get(username=request.user)
+        context={
+                'img_name':user.logininfo.image_name,
                 'shuffle':x
             }
-    except:
-        user=User.objects.get(username=request.user)
-        context={
-            'img_name':user.logininfo.image_name,
-            'shuffle':x
-        }
         
-    if request.is_ajax:
-            return render(request,'grid.html',context)
-        
-        
-def shuffle_login_img(request):
-    print(request.POST)
-    import numpy as np
-    x = np.arange(1,10)
-    np.random.shuffle(x)
-    email = request.POST['email']
-    if email in User.objects.all().values_list('email', flat=True):
-        user = User.objects.get(username=request.POST['email'])
-        print(user.logininfo.image_name)
-        data={
-            "img_name":str(user.logininfo.image_name),
-            'shuffle':x
-        }
-        return render(request,'grid.html',context=data)
     else:
-        messages.error(request,"account does not exists!")
-        return False
+        try:    
+            email = request.POST['email']
+            if email in User.objects.all().values_list('email', flat=True):
+                user = User.objects.get(username=request.POST['email'])
+           
+            data={
+                "img_name":str(user.logininfo.image_name),
+                'shuffle':x
+            }
+            return render(request,'grid.html',context=data)
+        except:
+            if request.session['img_name']:
+                context={
+                    'img_name':request.session['img_name'],
+                    'shuffle':x
+                }
+            else:
+                messages.error(request,"account does not exists!")
+                return False
+
         
-def check_email(request):
+    return render(request,'grid.html',context)
+        
+
+        
+        
+        
+def check_email(request):    #function to check the email and then proceeding with account creation ( registration ) 
     if request.method == 'POST':
-        email = request.POST['email']
-        password1 = request.POST['password1']
-        password2 = request.POST['password2']
+        email = request.POST['email']      #extract email
+        password1 = request.POST['password1']    #extract pass1 unshuffled image
+        password2 = request.POST['password2']    #extract pass2 shuffled image
+        if len(password1)<5:
+            messages.error(request, 'Invalid password!')
+            return redirect(register)
         if password1==password2:
             password1=''.join(password1)
             password2=''.join(password2)
             img_name=(password1.split(','))[0][:-1]
-            print(img_name)
-            print(password1)
+    
             if email in User.objects.all().values_list('email', flat=True):
                 messages.error(request,'User already exists!')
                 return redirect(login)
             try:
                 # create user and loginInfo for him
-                user = User.objects.create_user( username=email, email=email, password=password1)
-                login_info = LoginInfo(user=user, fails=0,image_name=img_name)
+                user = User.objects.create_user( username=email, email=email, password=password1)    #creating user in database
+                login_info = LoginInfo(user=user, fails=0,image_name=img_name)                       #filling login details
                 login_info.save()
                 auth_login(request,user)
-                
                 messages.success(request, 'Account created successfully!')
+                
+                
             except Exception as e:
-                print(e)
                 messages.warning(request, 'Error while creating Account!')
                 return redirect(register)
             return redirect(login)
+        
         else:
             messages.error(request, 'passwords does not match!')
-            return render(request, 'register.html')
+            return redirect(register)
         
 
-def sendLoginLinkMailToUser(username):
+def sendLoginLinkMailToUser(username):    # login when account is blocked!
     user = User.objects.get(username=username)
     # send email only if user.logininfo.login_link is not None
     if user.logininfo.login_link is None:
@@ -168,10 +154,9 @@ def sendLoginLinkMailToUser(username):
             to=[user.email],
         )
         email.send()
-        print('LOGIN LINK EMAIL SENT')
 
 
-def reset_password(request):
+def reset_password(request):   #function to display password reset form
     fm=CustomPasswordResetForm()
     context={
         'form':fm,
@@ -179,22 +164,20 @@ def reset_password(request):
     return render(request,'password_reset.html',context)
 
 
-def sendPasswordResetLinkToUser(request):
-
+def sendPasswordResetLinkToUser(request):  #function to send Password reset link to the user. Forgotten password.
     # send reset link everytime user requests
     try:
         user = User.objects.filter(username=request.POST['email']).first()
         if user==None:
             messages.error(request, 'user does not exist!')
             return redirect(index)
+        
     except Exception as e:
-        print(e)
         return False
     
     link = str(uuid.uuid4())
     user.logininfo.reset_link = link
     user.logininfo.save()
-    print("here")
     email = EmailMessage(
         subject='Link to Rest your Password',
         body='''
@@ -207,42 +190,39 @@ def sendPasswordResetLinkToUser(request):
         to=[user.email],
     )
     email.send()
-    print('PWD RESET LINK EMAIL SENT')
     return render(request,'password_reset_sent.html')
 
 
         
-def update_login_info(user, didSuccess):
+def update_login_info(user, didSuccess):    #updating user login details everytime
     if didSuccess:
         user.logininfo.fails = 0
     else:
         user.logininfo.fails += 1
     
     user.logininfo.save()
-    print('{} Failed attempts: {}'.format(user.username, user.logininfo.fails))
+    # print('{} Failed attempts: {}'.format(user.username, user.logininfo.fails))
 
 
-def isBlocked(username):
+def isBlocked(username):   #checks whether user is blocked or not
     try:
         user = User.objects.get(username=username)
     except Exception:
         return None
-    print('isBlocked: {} - {}'.format(user.logininfo, TBA))
+    # print('isBlocked: {} - {}'.format(user.logininfo, TBA))
     if user.logininfo.fails >= TBA:
         return True
     else:
         return False
         
         
-def login_page(request):
-    
-    print("inside login_page")
+def login_page(request):    #login page display function . handles login
     if request.method == 'POST':
         username = request.POST['email']
         password = request.POST['password']
         
         password=''.join(password)
-        print(username, password)
+        # print(username, password)
 
         block_status = isBlocked(username)
         if block_status is None:
@@ -276,32 +256,15 @@ def login_page(request):
     else:
         return render(request,'login.html')
 
-
-def login_mail_check(request):
-    email = request.POST['email']
-    if email in User.objects.all().values_list('email', flat=True):
-        user = User.objects.get(username=request.POST['email'])
-        print(user.logininfo.image_name)
-        data={
-            "img_name":str(user.logininfo.image_name)
-        }
-        return render(request,'login.html',context=data)
-    else:
-        messages.error("account does not exists!")
-        return redirect(register)
     
     
-def handlelogout(request):
+def handlelogout(request):   #logout user
     logout(request)
     messages.success(request, 'Successfully logged Out.')
     return redirect('index')
 
 
-
-
-
-
-def change_user_password(request):
+def change_user_password(request):      #when user wants to reset password from within account
     if request.user.is_authenticated:  
         if request.method =="POST":
             password1 = request.POST['password1']
@@ -310,8 +273,7 @@ def change_user_password(request):
                 password1=''.join(password1)
                 password2=''.join(password2)
                 img_name=(password1.split(','))[0][:-1]
-                print(img_name)
-                print(password1)
+
                 u=User.objects.get(username=request.user)
                 u.set_password(password1)
                 u.save()
@@ -332,8 +294,8 @@ def change_user_password(request):
     
     
     
-def check_pass(request):
-    print("inside check pass function")
+def check_pass(request):        #checking current password
+    print(request)
     passw=request.POST.getlist('password1[]')
     passw=','.join(passw)
     res=check_password(passw,request.user.password)
@@ -344,16 +306,10 @@ def check_pass(request):
     
 def reset_from_uid(request,uid):
     if request.method == 'POST':
-        print('hi-post')
         password = request.POST['password1']
-        print(password)
-        uniqui_id=uid
-        print(uniqui_id)
         try:
             # get user from the uid and reset the Link to 'NO_LINK' again
             login_info = LoginInfo.objects.get(reset_link=uid)
-            
-            print(login_info)
             user = login_info.user
             # reset pwd
             user.set_password(password)
@@ -361,23 +317,19 @@ def reset_from_uid(request,uid):
             login_info.image_name=request.session['img_name']
             login_info.save()
             user.save()
-            print(user)
             messages.success(request, 'Password Changed Successfully!')
         except Exception as e:
-            print(e)
             messages.warning(request, 'Invalid Link. Please check again!')
         return redirect(index)
     else:
-        print('hi-else')
         try:
             # To make sure the link is valid
-            print(uid)
+            
             login_info = LoginInfo.objects.get(reset_link=uid)
-            print(login_info)
+            
             data = {
                 'img_name': get_img_name()[:-4],
             }
-            print(data['img_name'])
             request.session['img_name']=data['img_name']
             return render(request, 'password_reset_form.html', context=data)
         except Exception:
@@ -389,9 +341,7 @@ def reset_from_uid(request,uid):
 def login_from_uid(request, uid):
     try:
         # get user from the uid and reset the Link to 'NO_LINK' again
-        print('uid = ',uid)
         login_info = LoginInfo.objects.get(login_link=uid)
-        print(login_info.user)
         user = login_info.user
         # auth_login(request, user)
         update_login_info(user, True)
@@ -404,10 +354,9 @@ def login_from_uid(request, uid):
     return redirect('index')
 
 
-def del_user(request):
+def del_user(request):   #delete user account
     uname=str(request.user)
     user=User.objects.get(username=request.user)
-    print(user)
     if user==None:
         messages.error(request,"User does not exist!")
     else:
