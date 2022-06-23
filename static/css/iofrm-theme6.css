@@ -103,6 +103,7 @@
 
 .form-content {
     background-color: #27343E;
+    background-repeat: repeat-y;
 }
 
 .form-content .form-group {
