@@ -16,6 +16,9 @@
 ------------------------------------*/
 .form-body {
     background-color: #27343E;
+    background-repeat: repeat-y;
+    height: max-content;
+    min-height:100%;
 }
 
 .website-logo {

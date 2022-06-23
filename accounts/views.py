@@ -10,6 +10,9 @@ from GraphicalPasswordAuth.settings import STATICFILES_DIRS
 import os , random , uuid , numpy as np
 from .forms import CustomPasswordResetForm
 
+from accounts.models import Contact
+
+
 # Create your views here.
 def index(request):      #main landing index page ( default )
     return redirect(login)
@@ -21,6 +24,15 @@ def about(request):
     return render(request,'about.html')
 
 def contactus(request):
+    if request.method == "POST":
+        Firstname = request.POST.get('firstname')
+        Lastname = request.POST.get('lastname')
+        Email = request.POST.get('contactemail')
+        Comments = request.POST.get('comment')
+        contactus_instance = Contact( firstname=Firstname, lastname=Lastname, contactemail= Email, comment= Comments  )
+        contactus_instance.save()
+        return redirect(contactus)
+
     return render(request,'contactus.html')
 
 def login(request):
