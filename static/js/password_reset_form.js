@@ -1,15 +1,22 @@
 
+
+
+// function func1() {
+//     console.log("inside func1 new random image");
+//     $('.grid-container').html('').load('new_random_img');
+// }
+
+function func1()
+{
+    $('.grid-container').html('').load(
+        'new_random_img'
+    );
+}
+
+
 var gpwd_set = new Set();
 var pswd1 = '';
 var pswd2 = '';
-
-
-function func1(event) {
-    event.preventDefault();
-    $('.grid-container').html('').load(
-        "new_random_img"
-    );
-}
 
 function shuffle(event) {
     pswd1 = Array.from(gpwd_set);
@@ -29,6 +36,7 @@ function shuffle(event) {
 
 
 
+
 function check_email(event) {
     var x = document.getElementById("prompt1");
     var y = document.getElementById("prompt2");
@@ -42,8 +50,6 @@ function check_email(event) {
         x.innerHTML = '';
         y.innerHTML = '';
         shuffle(event);
-
-
         timer();
     }
 }
