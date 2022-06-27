@@ -33,7 +33,6 @@ html, body {
 
 .form-body {
     background-color: #0093FF;
-    height: 100%;
 }
 
 .form-body > .row {
@@ -263,6 +262,7 @@ html, body {
 
 .form-holder {
     width: 100%;
+    height: inherit;
 }
 
 .form-holder .form-content {
@@ -270,8 +270,6 @@ html, body {
     text-align: center;
     display: -webkit-box;
     display: -moz-box;
-    /* display: -ms-flexbox;
-    display: -webkit-flex; */
     display: flex ;
     flex-direction: column;
     align-items: flex-start;
