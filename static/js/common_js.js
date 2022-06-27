@@ -56,13 +56,23 @@ function onSelect(r, c) {
     var imagesList = document.getElementsByClassName('img_btn');
     var x = imagesList[2].disabled;
     var res = r.toString() + c.toString();
+    var y = document.getElementById("prompt1");
     if (!x) {
+        y.innerHTML="";
         if (gpwd_set.has(res)) {
             gpwd_set.delete(res);
             document.getElementById(res).style.opacity = 1;
         } else {
-            gpwd_set.add(res);
-            document.getElementById(res).style.opacity = 0;
+            if(gpwd_set.size<3)
+            {
+                gpwd_set.add(res);
+                document.getElementById(res).style.opacity = 0;
+            }
+            else
+            {
+                y.innerHTML="Select at max 3 images only!";
+                y.style.color='red';
+            }
         }
     }
 }

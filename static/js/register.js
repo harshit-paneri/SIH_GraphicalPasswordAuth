@@ -1,3 +1,7 @@
+
+
+
+
 function func1() {
     $('.grid-container').html('').load(
         "new_random_img"
@@ -36,7 +40,7 @@ function check_email(event) {
     }
 
     if (gpwd_set.size < 3) {
-        y.innerHTML = "please select at least 3 images";
+        y.innerHTML = "please select 3 images";
         y.style.color = 'red';
     }
 
@@ -44,9 +48,6 @@ function check_email(event) {
         x.innerHTML = '';
         y.innerHTML = '';
         shuffle(event);
-
-        
-
         timer();
     }
 }

@@ -58,17 +58,14 @@ def register(request):     #register page redirection
         }
         request.session['img_name']=image_name[:-4]
         return render(request, 'register.html',context)
-    
-
-
 
 def new_random_img(request):     #function to get new random image , when requesting for another image 
     img_name=get_img_name()
+    print(img_name)
     context={
         'img_name':img_name[:-4]
     }
     request.session['img_name']=img_name[:-4]
-    
     return render(request,'grid.html',context)
         
         
