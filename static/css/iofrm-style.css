@@ -320,7 +320,7 @@ html, body {
 
 .form-content {
     position: relative;
-    background-color: #0093FF;
+    /* background-color: #0093FF; */
 }
 
 .form-content .form-group {
