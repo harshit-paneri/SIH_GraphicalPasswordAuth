@@ -24,6 +24,7 @@
             <div class="card-body ">
               <div class="container">
                 <form id="contact-form" method="POST" action="/contactus" >
+                    {% csrf_token %}
                   <div class=" text-center mt-1 ">
                     <h1 class="form_name"> Contact Form</h1>
                   </div>
