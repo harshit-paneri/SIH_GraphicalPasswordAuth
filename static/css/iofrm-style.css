@@ -262,7 +262,7 @@ html, body {
 
 .form-holder {
     width: 100%;
-    height: 100%;
+    height: inherit;
 }
 
 .form-holder .form-content {
