@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2022 at 06:01 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- Generation Time: Jun 23, 2022 at 08:29 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Database: `gpa`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `accounts_contact`
+--
+
+CREATE TABLE `accounts_contact` (
+  `id` bigint(20) NOT NULL,
+  `firstname` varchar(122) NOT NULL,
+  `lastname` varchar(122) NOT NULL,
+  `contactemail` varchar(122) NOT NULL,
+  `comment` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -108,7 +122,11 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (29, 'Can add login info', 8, 'add_logininfo'),
 (30, 'Can change login info', 8, 'change_logininfo'),
 (31, 'Can delete login info', 8, 'delete_logininfo'),
-(32, 'Can view login info', 8, 'view_logininfo');
+(32, 'Can view login info', 8, 'view_logininfo'),
+(33, 'Can add contact', 9, 'add_contact'),
+(34, 'Can change contact', 9, 'change_contact'),
+(35, 'Can delete contact', 9, 'delete_contact'),
+(36, 'Can view contact', 9, 'view_contact');
 
 -- --------------------------------------------------------
 
@@ -195,6 +213,7 @@ CREATE TABLE `django_content_type` (
 --
 
 INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
+(9, 'accounts', 'contact'),
 (8, 'accounts', 'logininfo'),
 (7, 'accounts', 'user_accounts'),
 (1, 'admin', 'logentry'),
@@ -241,7 +260,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (17, 'auth', '0011_update_proxy_permissions', '2022-05-25 16:45:58.987858'),
 (18, 'auth', '0012_alter_user_first_name_max_length', '2022-05-25 16:45:59.001096'),
 (19, 'sessions', '0001_initial', '2022-05-25 16:45:59.028635'),
-(20, 'accounts', '0002_delete_user_accounts', '2022-05-25 17:37:19.675182');
+(20, 'accounts', '0002_delete_user_accounts', '2022-05-25 17:37:19.675182'),
+(21, 'accounts', '0003_contact', '2022-06-23 06:29:36.523975');
 
 -- --------------------------------------------------------
 
@@ -266,6 +286,12 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `accounts_contact`
+--
+ALTER TABLE `accounts_contact`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `accounts_logininfo`
@@ -354,6 +380,12 @@ ALTER TABLE `django_session`
 --
 
 --
+-- AUTO_INCREMENT for table `accounts_contact`
+--
+ALTER TABLE `accounts_contact`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `accounts_logininfo`
 --
 ALTER TABLE `accounts_logininfo`
@@ -375,7 +407,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `auth_user`
@@ -405,13 +437,13 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables

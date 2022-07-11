@@ -13,48 +13,76 @@
 </head>
 
 <body>
-    {% block body %}
-<div class="form-body">
-  <div class="website-logo">
-    <a href="index.html">
-    </a>
-</div>
-<div class="d-flex p-2 justify-content-center form-content ">
-    <h3 class="d-flex p-2">Contact Us</h3>
-  </div>   
-  <head> 
-    <div style="background-color:#fff;width:50%;text-align:center;padding:2px;margin:0 auto">
-  <form class="row g-3">
-      <div class="col-md-6">
-        <label for="inputFirstname" class="form-label"> First Name</label>
-        <input type="name" class="form-control" id="inputFirstname">
-      </div>
-      <div class="col-md-6">
-        <label for="inputLastname" class="form-label">Last name</label>
-        <input type="name" class="form-control" id="inputLastname">
-      </div>
-      <div class="col-md-6">
-      <label for="inputEmail4" class="form-label">Email</label>
-      <input type="email" class="form-control" id="inputEmail4">
-    </div>
-    
-    <div class="form-floating">
-      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-      <label for="floatingTextarea2">Comments</label>
-    </div>
-     
-      <div class="col-12">
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
-    </form>
-    </head>
-  </div>
+  {% block body %}
+  <div class="form-body">
+    <div class="container form-body">
+      
+      <div class="row ">
+        
+        <div class="col-lg-7 mx-auto">
+          <div class="card mt-2 mx-auto p-4 ">
+            <div class="card-body ">
+              <div class="container">
+                <form id="contact-form" method="POST" action="/contactus" >
+                    {% csrf_token %}
+                  <div class=" text-center mt-1 ">
+                    <h1 class="form_name"> Contact Form</h1>
+                  </div>
+                  <div class="controls">
 
-</div>
-</div>
-</div>
-</div>
-</div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="form_name">Firstname *</label>
+                          <input id="form_name" type="name" name="firstname" id = "inputfirstname" class="form-control"
+                            placeholder="Please enter your firstname *" required="required"
+                            data-error="Firstname is required.">
+
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="form_lastname">Lastname *</label>
+                          <input id="form_lastname" type="name" name="lastname" id="inputlastname" class="form-control"
+                            placeholder="Please enter your lastname *" required="required"
+                            data-error="Lastname is required.">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="form_email">Email *</label>
+                          <input id="form_email" type="email" name="contactemail" id="inputEmail4" class="form-control"
+                            placeholder="Please enter your email *" required="required"
+                            data-error="Valid email is required.">
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="form_message">Comments *</label>
+                          <textarea id="floatingTextarea2" name="comment" class="form-control"
+                            placeholder="Write your message here." rows="4" required="required"
+                            data-error="Please, leave us a message."></textarea>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <button type="submit" class="btn btn-success pt-2 btn-block">Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<br><br><br>
+
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>

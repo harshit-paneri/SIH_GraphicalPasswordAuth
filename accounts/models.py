@@ -12,3 +12,11 @@ class LoginInfo(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class Contact(models.Model):
+    firstname = models.CharField(max_length=122)
+    lastname = models.CharField(max_length=122)
+    contactemail = models.EmailField(max_length=122)
+    comment = models.TextField()
+    def __str__(self):
+        return self.contactemail

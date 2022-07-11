@@ -1,11 +1,6 @@
-
-from django.contrib import admin
-from django.urls import path , include
+from django.urls import path
 from accounts import views
-from django.contrib.auth import views as auth_views
-from django.contrib.auth.views import PasswordResetView 
-
-# from .forms import CustomPasswordResetForm
+from django.contrib.auth import views as auth_views 
 
 urlpatterns = [
     path('',views.login,name='login'),
@@ -15,12 +10,9 @@ urlpatterns = [
     path('dashboard',views.dashboard,name='dashboard'),
     path('index',views.index,name='index'),
     path('register',views.register,name='register'),
-    path('handle_register',views.handle_register,name='handle_register'),
     path('check_email',views.check_email,name='check_email'),
     path('new_random_img',views.new_random_img,name='new_random_img'),
     path('shuffle_img',views.shuffle_img,name='shuffle_img'),
-    path('shuffle_login_img',views.shuffle_login_img,name='shuffle_login_img'),
-    path('login_mail_check',views.login_mail_check,name='login_mail_check'),
     path('login_page',views.login_page,name='login_page'),
     path('logout',views.handlelogout,name='logout'),
     path('change_user_password', views.change_user_password,name='change_user_password'),
