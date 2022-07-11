@@ -40,7 +40,7 @@ Domain Bucket : Blockchain & Cybersecurity
   </tr>
   <tr>
     <td>6</td>
-    <td> Management </td>
+    <td>Tester </td>
     <td>Somya Champawat</td>
   </tr>
   
