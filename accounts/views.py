@@ -9,7 +9,6 @@ from django.contrib.auth import authenticate ,login as auth_login , logout
 from GraphicalPasswordAuth.settings import STATICFILES_DIRS
 import os , random , uuid , numpy as np
 from .forms import CustomPasswordResetForm
-
 from accounts.models import Contact
 
 
@@ -187,6 +186,8 @@ def sendPasswordResetLinkToUser(request):  #function to send Password reset link
     link = str(uuid.uuid4())
     user.logininfo.reset_link = link
     user.logininfo.save()
+    print(user)
+    print(user.email)
     email = EmailMessage(
         subject='Link to Rest your Password',
         body='''
@@ -198,7 +199,13 @@ def sendPasswordResetLinkToUser(request):  #function to send Password reset link
         from_email=EMAIL_HOST_USER,
         to=[user.email],
     )
-    email.send()
+    try:
+        email.send()
+    except Exception as expt:
+        err=str(expt)
+        if "getaddrinfo" in err:
+            messages.error(request,"Internet access not available")
+            return redirect(sendPasswordResetLinkToUser)
     return render(request,'password_reset_sent.html')
 
 
