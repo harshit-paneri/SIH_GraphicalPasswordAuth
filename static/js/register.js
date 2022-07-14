@@ -1,7 +1,3 @@
-
-
-
-
 function func1() {
     $('.grid-container').html('').load(
         "new_random_img"
@@ -33,22 +29,27 @@ var pswd2 = '';
 function check_email(event) {
     var x = document.getElementById("prompt1");
     var y = document.getElementById("prompt2");
+    console.log(document.getElementById('email').value);
     if (document.getElementById('email').value == "") {
+        console.log("here");
 
         x.innerHTML = 'Please enter email id!';
         x.style.color = 'red';
     }
+    else
+    {
 
-    if (gpwd_set.size < 3) {
-        y.innerHTML = "please select 3 images";
-        y.style.color = 'red';
-    }
-
-    else {
-        x.innerHTML = '';
-        y.innerHTML = '';
-        shuffle(event);
-        timer();
+        if (gpwd_set.size < 3) {
+            y.innerHTML = "please select 3 images";
+            y.style.color = 'red';
+        }
+        
+        else {
+            x.innerHTML = '';
+            y.innerHTML = '';
+            shuffle(event);
+            timer();
+        }
     }
 }
 
