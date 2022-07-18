@@ -58,7 +58,7 @@ function blur_img()
         }
 
     
-        window.onload = function(e){ 
+        window.onload = function(){ 
             enable_button(); 
         }
 
