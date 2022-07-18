@@ -22,6 +22,7 @@ urlpatterns = [
     path('reset/<str:uid>', views.reset_from_uid, name='reset_from_uid'),
     path('login/<str:uid>', views.login_from_uid, name='login_uid'),
     path('del_user', views.del_user, name='del_user'),
+    path('nav', views.nav_test, name='nav_test'),
 
     path('reset_password_sent/', 
         auth_views.PasswordResetDoneView.as_view(template_name="password_reset_sent.html"), 

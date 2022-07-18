@@ -379,3 +379,8 @@ def del_user(request):   #delete user account
         user.delete()
         messages.success(request,"user {} deleted successfully!".format(uname))
     return redirect('index')
+
+
+
+def nav_test(request):
+    return render(request,'navbar.html')
