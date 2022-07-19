@@ -240,8 +240,7 @@ def login_page(request):    #login page display function . handles login
         password = request.POST['password']
         
         password=''.join(password)
-        
-        print("user = ",user)
+       
         # print(username, password)
 
         block_status = isBlocked(username)
