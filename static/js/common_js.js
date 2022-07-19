@@ -51,6 +51,29 @@ function timer() {
     startTimer(fiveMinutes, display);
 }
 
+function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+  }
+
+// let images = ['0','1.jpg', '2.jpg', '3.jpg'];
+
+// let index = 1;
+
+// function display_image_count(r1,index) {
+//     var imgElement = document.getElementById(r1);
+//     const prev_img_src= imgElement.src;
+//     console.log(count_src+images[index]);
+//     var new_url = new String(count_src+images[index]) ;
+
+//     console.log(imgElement.src);
+//     sleep(1000);
+//     imgElement.src=prev_img_src;
+// }
 
 function onSelect(r, c) {
     var imagesList = document.getElementsByClassName('img_btn');
@@ -62,11 +85,14 @@ function onSelect(r, c) {
         if (gpwd_set.has(res)) {
             gpwd_set.delete(res);
             document.getElementById(res).style.opacity = 1;
-        } else {
+        } 
+        else
+        {
             if(gpwd_set.size<3)
             {
                 gpwd_set.add(res);
                 document.getElementById(res).style.opacity = 0;
+                // display_image_count(res,gpwd_set.size)
             }
             else
             {

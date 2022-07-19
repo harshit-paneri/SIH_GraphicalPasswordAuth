@@ -18,7 +18,6 @@ function shuffle(event) {
     );
 
     timer();
-
 }
 
 var gpwd_set = new Set();
