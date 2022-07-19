@@ -72,7 +72,7 @@ def new_random_img(request):     #function to get new random image , when reques
 def shuffle_img(request):   #function to shuffle the current image and populate image grid
     x = np.arange(1,10)
     np.random.shuffle(x)
-    
+    # print(request.user)
     if request.user.is_authenticated and request.method=="POST":
         user = User.objects.get(username=request.user)
         context={
@@ -85,12 +85,14 @@ def shuffle_img(request):   #function to shuffle the current image and populate 
             email = request.POST['email']
             if email in User.objects.all().values_list('email', flat=True):
                 user = User.objects.get(username=request.POST['email'])
-           
-            data={
-                "img_name":str(user.logininfo.image_name),
-                'shuffle':x
-            }
-            return render(request,'grid.html',context=data)
+                data={
+                    "img_name":str(user.logininfo.image_name),
+                    'shuffle':x
+                }
+                return render(request,'grid.html',context=data)
+            else:
+                messages.error(request,"Incorrect email!")
+                return False
         except:
             if request.session['img_name']:
                 context={
@@ -238,6 +240,8 @@ def login_page(request):    #login page display function . handles login
         password = request.POST['password']
         
         password=''.join(password)
+        
+        print("user = ",user)
         # print(username, password)
 
         block_status = isBlocked(username)
