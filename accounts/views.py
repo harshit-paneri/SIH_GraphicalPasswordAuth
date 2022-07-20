@@ -23,14 +23,18 @@ def about(request):
     return render(request,'about.html')
 
 def contactus(request):
-    if request.method == "POST":
-        Firstname = request.POST.get('firstname')
-        Lastname = request.POST.get('lastname')
-        Email = request.POST.get('contactemail')
-        Comments = request.POST.get('comment')
-        contactus_instance = Contact( firstname=Firstname, lastname=Lastname, contactemail= Email, comment= Comments  )
-        contactus_instance.save()
-        return redirect(contactus)
+    try:
+        if request.method == "POST":
+            Firstname = request.POST.get('firstname')
+            Lastname = request.POST.get('lastname')
+            Email = request.POST.get('contactemail')
+            Comments = request.POST.get('comment')
+            contactus_instance = Contact( firstname=Firstname, lastname=Lastname, contactemail= Email, comment= Comments  )
+            contactus_instance.save()
+            messages.success(request,"Your response submitted successfully!")
+            return redirect(contactus)
+    except:
+        messages.success(request,"Some error occurred!!")
 
     return render(request,'contactus.html')
 
