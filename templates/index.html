@@ -38,6 +38,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
   <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %} " />
   {% block head %}{% endblock head %}
 
   <noscript>
@@ -83,7 +84,7 @@
 
           {% else %}
           <div class="text-end">
-            <button type="button" onclick="location.href='{% url 'login' %}'" class="btn btn-outline-light me-2">
+            <button type="button" onclick="location.href='{% url 'login' %}'" class="btn btn-outline-light me-2" style="background:#3a6f6d;">
               Login
             </button>
             <button type="button" onclick="location.href='{% url 'register' %}'" class="btn btn-warning">
