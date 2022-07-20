@@ -11,7 +11,7 @@ function shuffle(event) {
     document.getElementById('reload_image').hidden = true;
     document.getElementById('confirm_image').hidden = true;
     document.getElementById('register_btn').hidden = false;
-    document.getElementById('info').innerHTML = 'now select any three images and remember their order. that will be your password!';
+    document.getElementById('info').innerHTML = 'Now find those 3 images in order. These will become blur in 10 seconds. You will be able to select only after images becomes blur.';
     event.preventDefault();
     $('.grid-container').html('').load(
         "shuffle_img"
