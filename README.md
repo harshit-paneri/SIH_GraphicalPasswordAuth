@@ -1,3 +1,6 @@
+![0](https://github.com/Naman-sharma00100/Graphical-Password-Authentication-System/assets/84118525/b60c1579-30f4-4699-8053-69547355873c)
+
+
 The Graphical Password Assistant (GPA) is a technical project designed to enhance password security and user experience by offering a visual alternative to traditional text-based passwords. GPA allows users to create their own graphical passwords by following a series of defined actions.
 
 With GPA, users have the freedom to select their desired graphic images as the basis for their passwords. These images are divided into nine sections, and the user is required to choose at least three sections to construct their password. The order in which the sections are selected is also crucial for password validation.
@@ -38,4 +41,3 @@ This project was made possible thanks to the contributions of the following indi
 - [Priyanshu Arora](https://github.com/username6) - *Back-end development*
 
 A special thanks to all the contributors for their hard work and dedication in bringing this project to life. Without their efforts, this project would not have been possible.
-
