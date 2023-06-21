@@ -1,3 +1,4 @@
+
 ## Problem Statement Title : Graphical Password Authentication  
 
 ![0](https://github.com/Naman-sharma00100/Graphical-Password-Authentication-System/assets/84118525/b60c1579-30f4-4699-8053-69547355873c)
@@ -20,8 +21,5 @@ Overall, GPA presents an innovative approach to password management, emphasizing
 ![2](https://github.com/Naman-sharma00100/Graphical-Password-Authentication-System/assets/84118525/bf16bf4e-0cc0-4ea4-8aa0-1a47bf5e190c)
 
 ![3](https://github.com/Naman-sharma00100/Graphical-Password-Authentication-System/assets/84118525/bfbdbd6d-fbc3-4ed2-9ea3-cf66d124d987)
-
-
-
 
 
